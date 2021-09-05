@@ -32,7 +32,7 @@ public class UserControllerTests {
 	@Test
 	public void getAllShouldReturnHelloblogspaces() throws Exception {
         final Iterable<User> helloBlogSpacesUsers = new Iterable<>() { 
-            private User[] users = new User[] {new User("id", "Hello blog spaces")};    
+            private User[] users = new User[] {new User("1", "Hello blog spaces", null)};    
     
             public Iterator<User> iterator() {
                 return Arrays.stream(users).iterator();

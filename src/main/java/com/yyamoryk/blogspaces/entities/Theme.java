@@ -1,7 +1,5 @@
 package com.yyamoryk.blogspaces.entities;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,10 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "users")
-public class User {
+@Document(collection = "themes")
+public class Theme {
     @Id
     private String id;
-    private String name;
-    private List<Blog> blogs;
+    private String blogColor;
+    private String postColor;
+    private String commentColor;
+    private String blogBackgroundColor;
+    private String postBackgroundColor;
+    private String commentBackgroundColor;
 }
