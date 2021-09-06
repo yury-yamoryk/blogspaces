@@ -2,6 +2,9 @@ package com.yyamoryk.blogspaces.entities;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +19,14 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id
     private String id;
+
+    @NotBlank
+    @Size(max = 20)
     private String name;
+    
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
     private List<Blog> blogs;
 }
