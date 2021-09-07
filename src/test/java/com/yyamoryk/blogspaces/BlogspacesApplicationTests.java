@@ -55,11 +55,11 @@ class BlogspacesApplicationTests {
 		testBlog2.setPosts(testPosts);
 		List<Blog> testBlogs = Stream.of(testBlog1, testBlog2).collect(Collectors.toList());
 
-		User testUser1 = new User("1", "Test User1", null);
+		User testUser1 = new User("Test User 1", "abcdefab", null);
 		testUser1.setBlogs(testBlogs);
 		userRepository.save(testUser1);
 
-		User testUser2 = new User("2", "Test User2", null);
+		User testUser2 = new User("Test User 2", "qwertyab", null);
 		testUser2.setBlogs(testBlogs);
 		userRepository.save(testUser2);
 	}

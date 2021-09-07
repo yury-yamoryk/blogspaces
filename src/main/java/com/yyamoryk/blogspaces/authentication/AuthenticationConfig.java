@@ -48,10 +48,10 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.exceptionHandling().authenticationEntryPoint(unauthorizedRequestHandler).and()
+		http.cors().and().csrf().disable()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedRequestHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/**").permitAll()
-			.antMatchers("/create").authenticated();
+			.authorizeRequests().antMatchers("/**").permitAll();
 
 		http.addFilterBefore(tokenToSecurityContextFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

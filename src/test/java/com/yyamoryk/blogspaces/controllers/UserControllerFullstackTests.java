@@ -10,7 +10,11 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+import com.yyamoryk.blogspaces.BlogspacesApplication;
+
+@SpringBootTest(
+	webEnvironment = WebEnvironment.RANDOM_PORT,
+  classes = BlogspacesApplication.class)
 public class UserControllerFullstackTests {
 
 	@LocalServerPort
@@ -22,6 +26,6 @@ public class UserControllerFullstackTests {
 	@Test
 	public void userShouldReturnHelloblogspaces() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/users",
-				String.class)).contains("Hello blog spaces");
+				String.class)).contains("Test User 1");
 	}
 }

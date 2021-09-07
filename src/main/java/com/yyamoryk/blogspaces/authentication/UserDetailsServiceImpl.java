@@ -4,6 +4,7 @@ import com.yyamoryk.blogspaces.entities.User;
 import com.yyamoryk.blogspaces.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return org.springframework.security.core.userdetails.User
 			.withUsername(user.getName())
 			.password(user.getPassword())
+			.authorities(AuthorityUtils.NO_AUTHORITIES)
 			.build();
 	}
 }

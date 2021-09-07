@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
 @Document(collection = "users")
 public class User {
     @Id
-    private String id;
-
     @NotBlank
     @Size(max = 20)
     private String name;
