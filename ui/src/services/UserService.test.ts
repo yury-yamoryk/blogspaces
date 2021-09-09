@@ -41,4 +41,15 @@ describe("UserService", () => {
         const actualData = localStorage.getItem("user");
         expect(actualData).toBeNull();
       });
+
+      it ("getAll should get with headers /users", async () => {
+        const expectedUsers: never[] = [];
+        const mockedHttpServiceGet = HttpService.get as unknown as jest.Mock;
+        mockedHttpServiceGet.mockResolvedValue(expectedUsers);
+
+        const actualUsers = await UserService.getAll();
+
+        expect(actualUsers).toBe(expectedUsers);
+        expect(mockedHttpServiceGet).toHaveBeenCalledWith("/users", { "headers": {}});
+      });
 });

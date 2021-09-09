@@ -1,8 +1,9 @@
 import http from "./HttpService";
 import User from "../entities/User";
+import WebTokenHelper from "../helpers/WebTokenHelper";
 
 const getAll = () => {
-  return http.get("/users");
+  return http.get("/users", { headers:  WebTokenHelper.buildHttpHeader()});
 };
 
 const register = (username: string, password: string) => {
