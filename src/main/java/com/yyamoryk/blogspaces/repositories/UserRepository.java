@@ -13,7 +13,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     Boolean existsByName(String name);
 
-    @Query(value="{}", fields="{ name: 1, blogs: { posts: 0} }")
+    @Query(value="{}", fields="{ name: 1, password: 0, blogs: { posts: 0, theme: 0} }")
     List<User> findUsers();
     
 }

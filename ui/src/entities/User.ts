@@ -1,4 +1,6 @@
+import Blog from './Blog';
+
 export default interface User {
-    id?: any | null,
     name: string,
+    blogs: Blog[],
 }

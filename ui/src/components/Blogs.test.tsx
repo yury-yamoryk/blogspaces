@@ -1,48 +1,37 @@
-import React from 'react';
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import React from "react";
+import renderer from "react-test-renderer";
+import Blogs from "./Blogs";
+import { Provider } from "react-redux";
+import store from "../data/store";
 
-import Blogs from './Blogs';
-import MockedUserService from "../services/UserService";
-
-jest.mock("../services/UserService", () => {
-  return {
-    getAll: () => {
-        return Promise.resolve({ 
-            data: [{
-                id: "1",
-                name: "Hello blog spaces"
-            }],
-        });
-    },
-  };
-});
-
-let container: Element | null = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  // cleanup on exiting
-  let containerElement: Element = container as Element;
-  unmountComponentAtNode(containerElement);
-  containerElement.remove();
-  container = null;
-});
-
-it("should render Hello blog spaces", async () => {
-  await act(async () => {
-    render(
-      <Blogs />,
-      container
-    );
-  });
-
-  let containerElement: Element = container as Element;
-  expect(
-    container.querySelector(".list-group-item").innerHTML
-  ).toEqual("Hello blog spaces");
+it("Blogs snapshot", () => {
+  const tree = renderer
+    .create(
+      <Provider store={store}>
+        <Blogs />
+      </Provider>
+    )
+    .toJSON();
+  expect(tree).toMatchInlineSnapshot(`
+    <div
+      className="list row"
+    >
+      <div
+        className="col-md-12"
+      >
+        <h1>
+          Blogs
+        </h1>
+        <ul
+          className="list-group"
+        />
+        <ul
+          className="list-group"
+        />
+        <span>
+          The space is ready for blogs. Please, create your blog.
+        </span>
+      </div>
+    </div>
+  `);
 });

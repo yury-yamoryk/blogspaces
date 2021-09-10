@@ -4,8 +4,8 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './data/store';
 
-test('renders learn react link', () => {
+test('renders Blog Spaces', () => {
   render(<Provider store={store}><App /></Provider>);
-  const linkElement = screen.getByText(/Blogs/i);
+  const linkElement = screen.getByText(/Blog Spaces/i);
   expect(linkElement).toBeInTheDocument();
 });
