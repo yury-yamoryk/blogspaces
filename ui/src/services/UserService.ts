@@ -1,5 +1,4 @@
 import http from "./HttpService";
-import User from "../entities/User";
 import WebTokenHelper from "../helpers/WebTokenHelper";
 
 const getAll = () => {

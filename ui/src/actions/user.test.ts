@@ -65,8 +65,6 @@ describe("loginUser action", () => {
             recordedActions.push(action.type);
         } /* dispatch */).catch(() => {});
 
-        console.log(recordedActions);
-
         expect(recordedActions).toContain(LOGIN_FAIL);
         expect(recordedActions).toContain(SET_MESSAGE);
     });

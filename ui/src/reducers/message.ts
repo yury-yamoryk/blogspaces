@@ -1,8 +1,8 @@
 import { SET_MESSAGE, CLEAR_MESSAGE } from "../actions/types";
 
-const initialState = {};
+const initialState = { message: "" };
 
-export default function (state = initialState, action: { type:string, payload:Object }) {
+const message = function (state = initialState, action: { type:string, payload:Object }) {
   const { type, payload } = action;
 
   switch (type) {
@@ -15,4 +15,6 @@ export default function (state = initialState, action: { type:string, payload:Ob
     default:
       return state;
   }
-}
+};
+
+export default message
