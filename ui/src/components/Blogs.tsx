@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import BlogService from "../services/BlogService";
 import { default as BlogsEntity } from '../entities/Blogs';
 import { default as UserEntity } from '../entities/User';
 import {

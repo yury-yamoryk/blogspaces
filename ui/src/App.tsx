@@ -10,6 +10,7 @@ import SignUp from "./components/SignUp";
 import { logoutUser } from "./actions/user";
 import { clearMessage } from "./actions/message";
 import { createBrowserHistory } from "history";
+import Blog from "./components/Blog";
 
 const history = createBrowserHistory();
 
@@ -65,6 +66,7 @@ const App: React.FC = () => {
               <Route exact path={"/"} component={Blogs} />
               <Route exact path="/login" component={SignIn} />
               <Route exact path="/register" component={SignUp} />
+              <Route exact path="/:userName/:blogId" component={Blog} />
             </Switch>
           </div>
         </div>
