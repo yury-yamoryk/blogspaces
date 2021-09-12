@@ -61,7 +61,7 @@ public class UserControllerTests {
         };
 		when(userService.getAll()).thenReturn(helloBlogSpacesUsers);
 		when(repository.findByName(any())).thenReturn(Optional.of(new User("TestUser", "TestPassword", null)));
-		this.mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/spaces/users")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("TestUser")))
 				.andExpect(content().string(containsString("TestPassword")));
 	}

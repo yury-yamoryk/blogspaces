@@ -23,12 +23,12 @@ describe("BlogService", () => {
         expect(actualData).toBeDefined();
         expect(actualData.userBlogs).toBeDefined();
         expect(actualData.userBlogs.length).toBe(1);
-        expect(actualData.userBlogs[0].link).toBe("user2/blog2");
+        expect(actualData.userBlogs[0].link).toBe("spaces/user2/blog2");
 
         expect(actualData.otherBlogs).toBeDefined();
         expect(actualData.otherBlogs.length).toBe(2);
-        expect(actualData.otherBlogs[0].link).toBe("user1/blog1");
-        expect(actualData.otherBlogs[1].link).toBe("user3/blog3");
+        expect(actualData.otherBlogs[0].link).toBe("spaces/user1/blog1");
+        expect(actualData.otherBlogs[1].link).toBe("spaces/user3/blog3");
       });
 
       it("getBlog should create link in posts", async () => {
@@ -36,8 +36,8 @@ describe("BlogService", () => {
             id:"testBlog",
             title:"Test Blog",
             posts:[
-                { id: "1", description: null, title: "Test Post 1" },
-                { id: "2", description: null, title: "Test Post 2" },
+                { id: "1", description: null, title: "Test Post 1", comments: null },
+                { id: "2", description: null, title: "Test Post 2", comments: null },
             ],
             theme: null,
         };

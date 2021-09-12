@@ -44,3 +44,7 @@ label {
   color: lightseagreen;
   font-weight: bold;
 }
+
+.commentUserName {
+  font-weight: bold;
+}

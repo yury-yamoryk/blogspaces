@@ -63,7 +63,7 @@ const SignIn = (props: any) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    return <Redirect to="/spaces" />;
   }
 
   return (

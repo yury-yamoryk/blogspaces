@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -11,6 +11,7 @@ import { logoutUser } from "./actions/user";
 import { clearMessage } from "./actions/message";
 import { createBrowserHistory } from "history";
 import Blog from "./components/Blog";
+import Post from "./components/Post";
 
 const history = createBrowserHistory();
 
@@ -32,14 +33,14 @@ const App: React.FC = () => {
       <Router history={history}>
         <div>
         <nav className="navbar navbar-expand">
-            <Link to={"/"} className="navbar-brand ms-1">
+            <Link to={"/spaces"} className="navbar-brand ms-1">
               Blog Spaces
             </Link>
 
             {currentUser ? (
               <div className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={logOut}>
+                  <a href="/spaces/login" className="nav-link" onClick={logOut}>
                     LogOut
                   </a>
                 </li>
@@ -47,13 +48,13 @@ const App: React.FC = () => {
             ) : (
               <div className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
+                  <Link to={"/spaces/login"} className="nav-link">
                     Login
                   </Link>
                 </li>
 
                 <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
+                  <Link to={"/spaces/register"} className="nav-link">
                     Sign Up
                   </Link>
                 </li>
@@ -63,10 +64,14 @@ const App: React.FC = () => {
 
           <div className="container mt-3">
             <Switch>
-              <Route exact path={"/"} component={Blogs} />
-              <Route exact path="/login" component={SignIn} />
-              <Route exact path="/register" component={SignUp} />
-              <Route exact path="/:userName/:blogId" component={Blog} />
+              <Route exact path="/">
+                <Redirect to="/spaces" />
+              </Route>
+              <Route exact path={["/spaces/"]} component={Blogs} />
+              <Route exact path="/spaces/login" component={SignIn} />
+              <Route exact path="/spaces/register" component={SignUp} />
+              <Route exact path="/spaces/:userName/:blogId" component={Blog} />
+              <Route exact path="/spaces/:userName/:blogId/:postId" component={Post} />
             </Switch>
           </div>
         </div>

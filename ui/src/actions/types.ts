@@ -7,3 +7,4 @@ export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const GET_ALL_BLOGS = "GET_ALL_BLOGS";
 export const GET_BLOG = "GET_BLOG";
+export const GET_POST = "GET_POST";

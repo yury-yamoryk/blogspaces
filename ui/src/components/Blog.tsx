@@ -3,7 +3,7 @@ import BlogService from "../services/BlogService";
 import { default as BlogEntity } from '../entities/Blog';
 import {
     getBlog,
-} from '../actions/blogs';
+} from '../actions/blog';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 

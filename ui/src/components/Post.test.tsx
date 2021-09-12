@@ -1,21 +1,21 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Blog from "./Blog";
+import Post from "./Post";
 import { Provider } from "react-redux";
 import store from "../data/store";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useLocation: () => ({
-    pathname: "localhost:3000/testUser/testBlog",
+    pathname: "localhost:3000/testUser/testBlog/testPost",
   }),
 }));
 
-it("Blog snapshot", () => {
+it("Post snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Blog />
+        <Post />
       </Provider>
     )
     .toJSON();
@@ -30,12 +30,12 @@ it("Blog snapshot", () => {
         <h1>
           
         </h1>
+        <div>
+          
+        </div>
         <ul
           className="list-group"
         />
-        <span>
-          Nothing here right now.
-        </span>
       </div>
     </div>
   `);

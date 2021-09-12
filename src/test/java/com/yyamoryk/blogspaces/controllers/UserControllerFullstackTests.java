@@ -25,7 +25,7 @@ public class UserControllerFullstackTests {
 
 	@Test
 	public void userShouldReturnHelloblogspaces() throws Exception {
-		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/users",
+		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/spaces/users",
 				String.class)).contains("Test User 1");
 	}
 }

@@ -1,16 +1,22 @@
 import {
-    GET_BLOG,
+    GET_BLOG, GET_POST,
   } from "../actions/types";
 import Blog from "../entities/Blog";
   
   const initialState: Blog = { id: "", title: "", theme: null, posts: [] };
   
   const blog = function(state = initialState, action: any) {
-    const { type, blog } = action;
+    const { type } = action;
   
     switch (type) {
       case GET_BLOG:
-        return blog;
+        return action.blog;
+
+      case GET_POST:
+        return {
+          ...state,
+          theme: action.getPostResponse.optionalTheme
+        };
         
       default:
         return state;

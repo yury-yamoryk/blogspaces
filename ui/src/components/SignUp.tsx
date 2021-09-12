@@ -78,7 +78,7 @@ const SignUp = () => {
   };
 
   if (successful) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/spaces/login" />;
   }
 
   return (

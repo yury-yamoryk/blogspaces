@@ -3,7 +3,7 @@ import { default as BlogsEntity } from '../entities/Blogs';
 import { default as UserEntity } from '../entities/User';
 import {
     getAllBlogs,
-} from '../actions/blogs'
+} from '../actions/blog'
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 

@@ -20,7 +20,7 @@ public class BlogController {
 		this.blogService = service;
 	}
 
-    @RequestMapping(method=RequestMethod.GET, value="/{userName}/{blogId}")
+    @RequestMapping(method=RequestMethod.GET, value="/api/spaces/{userName}/{blogId}")
     public GetBlogResponse getBlog(@Valid GetBlogRequest request) {
         return new GetBlogResponse(blogService.getBlog(request.getUserName(), request.getBlogId()));
     }

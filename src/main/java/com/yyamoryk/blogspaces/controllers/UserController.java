@@ -26,23 +26,23 @@ public class UserController {
 		this.userService = service;
 	}
 
-    @RequestMapping(method=RequestMethod.GET, value="/users")
+    @RequestMapping(method=RequestMethod.GET, value="/api/spaces/users")
 	//@PreAuthorize("isAuthenticated()")
     public Iterable<User> getUsers() {
         return userService.getAll();
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/user")
+    @RequestMapping(method=RequestMethod.POST, value="/api/spaces/user")
     public User postUser(@RequestBody User user) {
         return userService.save(user);
     }
 
-	@RequestMapping(method=RequestMethod.POST, value="/authenticate")
+	@RequestMapping(method=RequestMethod.POST, value="/api/spaces/authenticate")
 	public ResponseEntity<?> authenticate(@Valid @RequestBody AuthData authData) {
         return ResponseEntity.ok(userService.authenticate(authData));
 	}
 
-	@RequestMapping(method=RequestMethod.POST, value="/register")
+	@RequestMapping(method=RequestMethod.POST, value="/api/spaces/register")
 	public ResponseEntity<?> register(@Valid @RequestBody RegistrationData registrationData) {
 		if (userService.hasUser(registrationData)) {
 			return ResponseEntity

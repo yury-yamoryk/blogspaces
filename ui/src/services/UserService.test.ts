@@ -4,7 +4,7 @@ import HttpService from './HttpService';
 jest.mock("./HttpService");
 
 describe("UserService", () => {
-    it("register should with username and password get data from POST /register ", async () => {
+    it("register should with username and password get data from POST /spaces/register ", async () => {
         const testUserName:string = "testUserName";
         const testUserPassword:string = "testUserPassword";
         const expectedData:Object = {};
@@ -15,10 +15,10 @@ describe("UserService", () => {
         const actualData = await UserService.register(testUserName, testUserPassword);
 
         expect(actualData).toBe(expectedData);
-        expect(mockedHttpServicePost).toHaveBeenCalledWith("/register", { username: testUserName, password: testUserPassword});
+        expect(mockedHttpServicePost).toHaveBeenCalledWith("/spaces/register", { username: testUserName, password: testUserPassword});
       });
 
-      it("login should with username and password set localstorage user from POST /authenticate ", async () => {
+      it("login should with username and password set localstorage user from POST /spaces/authenticate ", async () => {
         const testUserName:string = "testUserName";
         const testUserPassword:string = "testUserPassword";
         const expectedData:Object = { token: "testToken"};
@@ -30,7 +30,7 @@ describe("UserService", () => {
         const actualData = localStorage.getItem("user");
 
         expect(actualData).toBe(JSON.stringify(expectedData));
-        expect(mockedHttpServicePost).toHaveBeenCalledWith("/authenticate", { username: testUserName, password: testUserPassword});
+        expect(mockedHttpServicePost).toHaveBeenCalledWith("/spaces/authenticate", { username: testUserName, password: testUserPassword});
       });
 
       it("logout should clean localstorage user", async () => {
@@ -42,7 +42,7 @@ describe("UserService", () => {
         expect(actualData).toBeNull();
       });
 
-      it ("getAll should get with headers /users", async () => {
+      it ("getAll should get with headers /spaces/users", async () => {
         const expectedUsers: never[] = [];
         const mockedHttpServiceGet = HttpService.get as unknown as jest.Mock;
         mockedHttpServiceGet.mockResolvedValue(expectedUsers);
@@ -50,6 +50,6 @@ describe("UserService", () => {
         const actualUsers = await UserService.getAll();
 
         expect(actualUsers).toBe(expectedUsers);
-        expect(mockedHttpServiceGet).toHaveBeenCalledWith("/users", { "headers": {}});
+        expect(mockedHttpServiceGet).toHaveBeenCalledWith("/spaces/users", { "headers": {}});
       });
 });

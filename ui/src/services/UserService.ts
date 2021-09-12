@@ -2,11 +2,11 @@ import http from "./HttpService";
 import WebTokenHelper from "../helpers/WebTokenHelper";
 
 const getAll = () => {
-  return http.get("/users", { headers:  WebTokenHelper.buildHttpHeader()});
+  return http.get("/spaces/users", { headers:  WebTokenHelper.buildHttpHeader()});
 };
 
 const register = (username: string, password: string) => {
-  return http.post("/register", {
+  return http.post("/spaces/register", {
     username,
     password,
   });
@@ -14,7 +14,7 @@ const register = (username: string, password: string) => {
 
 const login = (username: string, password: string) => {
   return http
-    .post("/authenticate", {
+    .post("/spaces/authenticate", {
       username,
       password,
     })
