@@ -24,16 +24,30 @@ const getBlog: (blogPath: string) => Promise<Blog>
 = async (blogPath: string) => {
     const response: any = await http.get(blogPath);
     const blog: Blog = response.data.optionalBlog;
-    if (blog && blog.posts) {
-        blog.posts = blog.posts.map(post => ({...post, link: blogPath + "/" + post.id }));
-        return blog;
+    if (!blog) {
+        return { id: "", title: "", posts: [], theme: null};
     }
-    return { id: "", title: "", posts: [], theme: null};
+    if (blog.posts) {
+        blog.posts = blog.posts.map(post => ({...post, link: blogPath + "/" + post.id }));
+    }
+    return blog;
+};
+
+const createBlog = async (userName: string, newBlog: Blog, themeId: string) => {
+    const response: any = await http.post("/spaces/createBlog", {
+        userName,
+        blogId: newBlog.id,
+        blogTitle: newBlog.title,
+        themeId: themeId
+    });
+
+    return response.data;
 };
 
 const BlogService = {
   getAll,
   getBlog,
+  createBlog,
 };
 
 export default BlogService

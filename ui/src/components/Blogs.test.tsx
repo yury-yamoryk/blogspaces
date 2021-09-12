@@ -22,6 +22,12 @@ it("Blogs snapshot", () => {
         <h1>
           Blogs
         </h1>
+        <button
+          className="btn btn-success"
+          onClick={[Function]}
+        >
+          Add
+        </button>
         <ul
           className="list-group"
         />

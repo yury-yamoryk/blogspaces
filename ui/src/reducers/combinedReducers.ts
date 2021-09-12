@@ -4,6 +4,7 @@ import message from "./message";
 import blogs from "./blogs";
 import blog from "./blog";
 import post from "./post";
+import theme from "./theme";
 
 export default combineReducers({
   authentication,
@@ -11,4 +12,5 @@ export default combineReducers({
   blogs,
   blog,
   post,
+  theme,
 });

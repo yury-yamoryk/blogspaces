@@ -32,9 +32,9 @@ class BlogspacesApplicationTests {
 
 	@Test
 	void loadsDb() {
-		Theme greenTheme = new Theme("1", "#065535", "#065535", "#065535", "#b6fcd5", "#66cdaa", "#b4eeb4");
-		Theme redTheme = new Theme("2", "#800000", "#800000", "#800000", "#ffc0cb", "#ff7373", "#ffe4e1");
-		Theme blueTheme = new Theme("3", "#003366", "#003366", "#003366", "#f0f8ff", "#4ca3dd", "#c6e2ff");
+		Theme greenTheme = new Theme("1", "Greenish", "#065535", "#065535", "#065535", "#b6fcd5", "#66cdaa", "#b4eeb4");
+		Theme redTheme = new Theme("2", "Redish", "#800000", "#800000", "#800000", "#ffc0cb", "#ff7373", "#ffe4e1");
+		Theme blueTheme = new Theme("3", "Blueish", "#003366", "#003366", "#003366", "#f0f8ff", "#4ca3dd", "#c6e2ff");
 		themeRepository.save(greenTheme);
 		themeRepository.save(redTheme);
 		themeRepository.save(blueTheme);

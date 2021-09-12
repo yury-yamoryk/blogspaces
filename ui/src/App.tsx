@@ -12,6 +12,7 @@ import { clearMessage } from "./actions/message";
 import { createBrowserHistory } from "history";
 import Blog from "./components/Blog";
 import Post from "./components/Post";
+import CreateBlog from "./components/CreateBlog";
 
 const history = createBrowserHistory();
 
@@ -72,6 +73,7 @@ const App: React.FC = () => {
               <Route exact path="/spaces/register" component={SignUp} />
               <Route exact path="/spaces/:userName/:blogId" component={Blog} />
               <Route exact path="/spaces/:userName/:blogId/:postId" component={Post} />
+              <Route exact path="/spaces/createBlog" component={CreateBlog} />
             </Switch>
           </div>
         </div>

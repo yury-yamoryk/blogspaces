@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Theme {
     @Id
     private String id;
+    private String name;
     private String blogColor;
     private String postColor;
     private String commentColor;

@@ -24,7 +24,7 @@ public final class TestDataBuilder {
         testPost3.setComments(testComments);
 		List<Post> testPosts = Stream.of(testPost1, testPost2, testPost3).collect(Collectors.toList());
 
-        Theme testTheme = new Theme("testTheme", "#003366", "#003366", "#003366", "#f0f8ff", "#4ca3dd", "#c6e2ff");
+        Theme testTheme = new Theme("testTheme", "Test Theme", "#003366", "#003366", "#003366", "#f0f8ff", "#4ca3dd", "#c6e2ff");
 		Blog testBlog1 = new Blog("testBlogId", "Test Blog 1", null /* posts */, testTheme);
 		testBlog1.setPosts(testPosts);
 		List<Blog> testBlogs = Stream.of(testBlog1).collect(Collectors.toList());
