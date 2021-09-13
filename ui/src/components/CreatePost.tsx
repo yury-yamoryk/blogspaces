@@ -32,8 +32,7 @@ const verifyPostUrlId = (value:string) => {
 const CreatePost: React.FC = (props: any) => {
     const userData = useSelector<any, WebTokenData>(state => state.authentication.user);
     if (!userData) {
-        props.history.push("/");
-        window.location.reload();
+        props.history.goBack();
     }
 
     const form = useRef();

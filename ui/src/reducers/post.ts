@@ -1,4 +1,5 @@
 import {
+  ADD_COMMENT,
     GET_POST,
   } from "../actions/types";
 import Post from "../entities/Post";
@@ -11,6 +12,12 @@ import Post from "../entities/Post";
     switch (type) {
       case GET_POST:
         return action.getPostResponse.optionalPost;
+
+      case ADD_COMMENT:
+        return {
+          ...state,
+          comments: [ ...(state.comments ? state.comments : []), action.newComment ],
+        }
         
       default:
         return state;

@@ -11,3 +11,4 @@ export const GET_POST = "GET_POST";
 export const GET_THEMES = "GET_THEMES";
 export const CREATE_BLOG = "CREATE_BLOG";
 export const CREATE_POST = "CREATE_POST";
+export const ADD_COMMENT = "ADD_COMMENT";

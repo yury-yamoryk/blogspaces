@@ -12,8 +12,8 @@ import com.yyamoryk.blogspaces.entities.User;
 
 public final class TestDataBuilder {
     static User buildTestUser() {
-        Comment testComment1 = new Comment("1", "Test Comment 1 Text", "Comment User 1");
-		Comment testComment2 = new Comment("2", "Test Comment 2 Text", "Comment User 2");
+        Comment testComment1 = new Comment(0, "Test Comment 1 Text", "Comment User 1");
+		Comment testComment2 = new Comment(1, "Test Comment 2 Text", "Comment User 2");
 		List<Comment> testComments = Stream.of(testComment1, testComment2).collect(Collectors.toList());
 
 		Post testPost1 = new Post("1", "Test Post 1", "Test Post 1 Description", null);

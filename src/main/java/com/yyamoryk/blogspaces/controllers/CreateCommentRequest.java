@@ -7,16 +7,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateBlogRequest {
+public class CreateCommentRequest {
     @NotBlank
     String userName;
 
     @NotBlank
-    private String blogId;
+    String blogId;
 
     @NotBlank
-    private String blogTitle;
+    String postId;
 
     @NotBlank
-    private String themeId;
+    String commentText;
+
+    @NotBlank
+    String commentUserName;
 }

@@ -18,7 +18,7 @@ it("CreateBlog snapshot", () => {
     .create(
       <Provider store={store}>
         <MemoryRouter>
-          <CreateBlog history={{ push: () => {} }} />
+          <CreateBlog history={{ goBack: () => {} }} />
         </MemoryRouter>
       </Provider>
     )
