@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,7 +33,8 @@ public class BlogController {
         return new GetBlogResponse(blogService.getBlog(request.getUserName(), request.getBlogId()));
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/api/spaces/createBlog")
+    @RequestMapping(method=RequestMethod.PUT, value="/api/spaces/blog")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createBlog(@Valid @RequestBody CreateBlogRequest request) {
         var optionalTheme = themeRepository.findAll().stream().filter(theme -> theme.getId().equals(request.getThemeId())).findFirst();
         if (optionalTheme.isEmpty()) {
@@ -44,6 +46,19 @@ public class BlogController {
         var newBlog = new Blog(request.getBlogId(), request.getBlogTitle(), null /* posts */, optionalTheme.get());
         try {
             return ResponseEntity.ok(new CreateBlogResponse(blogService.createBlog(request.getUserName(), newBlog)));
+        } catch (Exception e) {
+            return ResponseEntity
+					.ok()
+					.body(new MessageData(e.getMessage()));
+        }
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="/api/spaces/blog")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> deleteBlog(@Valid @RequestBody DeleteBlogRequest request) {
+        try {
+            blogService.deleteBlog(request.getUserName(), request.getBlogId());
+            return ResponseEntity.ok(new DeleteBlogResponse(true));
         } catch (Exception e) {
             return ResponseEntity
 					.ok()

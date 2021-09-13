@@ -22,18 +22,6 @@ it("Blogs snapshot", () => {
         <h1>
           Blogs
         </h1>
-        <button
-          className="btn btn-success"
-          onClick={[Function]}
-        >
-          Add
-        </button>
-        <ul
-          className="list-group"
-        />
-        <ul
-          className="list-group"
-        />
         <span>
           The space is ready for blogs. Please, create your blog.
         </span>

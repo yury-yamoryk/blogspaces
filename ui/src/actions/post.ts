@@ -29,3 +29,12 @@ export const createPost = (userName: string, blogId: string, post: Post) => asyn
     }
     return response;
 };
+
+export const deletePost = (userName: string, blogId: string, postId: string) => async (dispatch) => {
+    const response = await PostService.deletePost(userName, blogId, postId);
+    if (response.message) {
+        dispatch(setMessage(response.message));
+    }
+    
+    return response;
+};

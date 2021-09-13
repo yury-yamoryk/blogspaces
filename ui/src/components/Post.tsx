@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent, useRef } from "react";
 import { default as PostEntity } from '../entities/Post';
 import { default as ThemeEntity } from '../entities/Theme';
 import {
-    getPost,
+    getPost, deletePost
 } from '../actions/post';
 import {
     createComment
@@ -38,6 +38,10 @@ const Post: React.FC = (props: any) => {
     const [newCommentText, setNewCommentText] = useState<string>("");
     const message = useSelector<any, string>(state => state.message.message);
 
+    if (!post) {
+        props.history.goBack();
+    }
+
     const onChangeCommentText = (e: ChangeEvent<HTMLInputElement>) => {
         const commentText = e.target.value;
         setNewCommentText(commentText);
@@ -65,6 +69,19 @@ const Post: React.FC = (props: any) => {
             const postId = props.match.params.postId;
             dispatch(createComment(ownerUserName, blogId, postId, comment));
         }
+    };
+
+    const trashPost = () => {
+        const ownerUserName = props.match.params.userName;
+        const blogId = props.match.params.blogId;
+        const postId = props.match.params.postId;
+        dispatch(deletePost(ownerUserName, blogId, postId))
+            .then(response => {
+                props.history.goBack();
+            })
+            .catch(e => {
+                console.log(e);
+            });
     };
 
     return (
@@ -137,6 +154,11 @@ const Post: React.FC = (props: any) => {
                         ))}
                     </ul>
                 )}
+
+                {userData && userData.username == props.match.params.userName &&
+                <button className="btn btn-danger" onClick={trashPost}>
+                    Delete Post
+                </button>}
             </div>
         </div>
     );

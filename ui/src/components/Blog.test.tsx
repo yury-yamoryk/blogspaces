@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import Blog from "./Blog";
 import { Provider } from "react-redux";
 import store from "../data/store";
+import { MemoryRouter } from "react-router-dom";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -15,7 +16,9 @@ it("Blog snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
-        <Blog />
+        <MemoryRouter>
+          <Blog history={{ goBack: () => {} }} />
+        </MemoryRouter>
       </Provider>
     )
     .toJSON();
@@ -30,12 +33,6 @@ it("Blog snapshot", () => {
         <h1>
           
         </h1>
-        <button
-          className="btn btn-success"
-          onClick={[Function]}
-        >
-          Add
-        </button>
         <ul
           className="list-group"
         />

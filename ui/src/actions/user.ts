@@ -11,23 +11,24 @@ import UserService from "../services/UserService";
 export const registerUser = (username: string, password: string) => (dispatch: (action: any) => void) => {
   return UserService.register(username, password).then(
     (response) => {
-      dispatch(registerSuccess());
+      if (response.data.message && response.data.message.indexOf("Error") > -1) {
+        const message =
+        (response && response.data && response.data.message) ||
+        response.data.message ||
+        response.toString();
 
-      dispatch(setMessage(response.data.message));
+        dispatch(registerFail());
 
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
-        error.toString();
+        dispatch(setMessage(message));
 
-      dispatch(registerFail());
+        return Promise.reject();
+      } else {
+        dispatch(registerSuccess());
 
-      dispatch(setMessage(message));
+        dispatch(setMessage(response.data.message));
 
-      return Promise.reject();
+        return Promise.resolve();
+      }
     }
   );
 };
@@ -35,21 +36,21 @@ export const registerUser = (username: string, password: string) => (dispatch: (
 export const loginUser = (username: string, password: string) => (dispatch: (action: any) => void) => {
   return UserService.login(username, password).then(
     (responseData) => {
-      dispatch(loginSuccess(responseData));
+      if (responseData.token) {
+        dispatch(loginSuccess(responseData));
 
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
-        error.toString();
+        return Promise.resolve();
+      } else {
+        const message =
+        (responseData.response && responseData.response.data && responseData.response.data.message) ||
+        responseData.message ||
+        responseData.toString();
 
-      dispatch(loginFail());
+        dispatch(loginFail());
 
-      dispatch(setMessage(message));
-
-      return Promise.reject();
+        dispatch(setMessage(message));
+        return Promise.reject();
+      }
     }
   );
 };

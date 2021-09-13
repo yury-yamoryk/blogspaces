@@ -3,6 +3,7 @@ package com.yyamoryk.blogspaces.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.yyamoryk.blogspaces.entities.Blog;
 import com.yyamoryk.blogspaces.entities.User;
@@ -59,5 +60,21 @@ public class BlogService {
         userBlogs.add(newBlog);
         userRepository.save(user.get());
         return newBlog;
+    }
+
+    public void deleteBlog(String userName, String blogId) {
+        Optional<User> user = userRepository.findByName(userName);
+        if (!user.isPresent()) {
+            return;
+        }
+
+        List<Blog> userBlogs = user.get().getBlogs();
+        if (userBlogs == null) {
+            return;
+        }
+
+        var filteredBlogs = userBlogs.stream().filter(b -> !b.getId().equals(blogId)).collect(Collectors.toList());
+        user.get().setBlogs(filteredBlogs);
+        userRepository.save(user.get());
     }
 }

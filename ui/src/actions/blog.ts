@@ -42,3 +42,12 @@ export const createBlog = (userName: string, blog: Blog, themeId: string) => asy
     }
     return response;
 };
+
+export const deleteBlog = (userName: string, blogId: string) => async (dispatch) => {
+    const response = await BlogService.deleteBlog(userName, blogId);
+    if (response.message) {
+        dispatch(setMessage(response.message));
+    }
+
+    return response;
+};

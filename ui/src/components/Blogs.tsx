@@ -6,14 +6,15 @@ import {
 } from '../actions/blog'
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import WebTokenData from "../entities/WebTokenData";
 
 const Blogs: React.FC = (props: any) => { 
     const blogs = useSelector<any, BlogsEntity>(state => state.blogs);
-    const user = useSelector<any, UserEntity>(state => state.authentication.user);
+    const user = useSelector<any, WebTokenData>(state => state.authentication.user);
     const dispatch = useDispatch<(action:any)=>any>();
     
     useEffect(() => {
-        dispatch(getAllBlogs(user && user.name));
+        dispatch(getAllBlogs(user && user.username));
     }, []);
 
     const newBlog = () => {
@@ -26,11 +27,13 @@ const Blogs: React.FC = (props: any) => {
             <div className="col-md-12">
                 <h1>Blogs</h1>
 
+                {user &&
                 <button className="btn btn-success" onClick={newBlog}>
-                    Add
-                </button>
+                    Create new blog
+                </button>}
 
-                {blogs.userBlogs && (
+                {user && blogs.userBlogs.length > 0 && <h2>My Blogs</h2>}
+                {blogs.userBlogs && blogs.userBlogs.length > 0 && (
                     <ul className="list-group">
                         {blogs.userBlogs.map((blog, index) => (
                             <li className="list-group-item" key={index}>
@@ -42,7 +45,8 @@ const Blogs: React.FC = (props: any) => {
                     </ul>
                 )}
 
-                {blogs.otherBlogs && (
+                {user && blogs.userBlogs.length > 0 && <h2>Other Blogs</h2>}
+                {blogs.otherBlogs && blogs.otherBlogs.length > 0 && (
                     <ul className="list-group">
                         {blogs.otherBlogs.map((blog, index) => (
                             <li className="list-group-item" key={index}>

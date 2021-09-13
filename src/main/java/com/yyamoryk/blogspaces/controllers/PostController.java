@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,11 +30,25 @@ public class PostController {
         return new GetPostResponse(getPostResponse.getOptionalPost(), getPostResponse.getOptionalTheme());
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/api/spaces/createPost")
+    @RequestMapping(method=RequestMethod.PUT, value="/api/spaces/post")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createPost(@Valid @RequestBody CreatePostRequest request) {
         var newPost = new Post(request.getPostId(), request.getPostTitle(), request.getPostDescription(), null /* comments */);
         try {
             return ResponseEntity.ok(new CreatePostResponse(postService.createPost(request.getUserName(), request.getBlogId(), newPost)));
+        } catch (Exception e) {
+            return ResponseEntity
+					.ok()
+					.body(new MessageData(e.getMessage()));
+        }
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="/api/spaces/post")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> deletePost(@Valid @RequestBody DeletePostRequest request) {
+        try {
+            postService.deletePost(request.getUserName(), request.getBlogId(), request.getPostId());
+            return ResponseEntity.ok(new DeletePostResponse(true));
         } catch (Exception e) {
             return ResponseEntity
 					.ok()

@@ -1,6 +1,7 @@
 import http from "./HttpService";
 import Blog from "../entities/Blog";
 import User from "../entities/User";
+import WebTokenHelper from "../helpers/WebTokenHelper";
 
 const spacesPrefix = "spaces/";
 
@@ -34,12 +35,21 @@ const getBlog: (blogPath: string) => Promise<Blog>
 };
 
 const createBlog = async (userName: string, newBlog: Blog, themeId: string) => {
-    const response: any = await http.post("/spaces/createBlog", {
+    const response: any = await http.put("/spaces/blog", {
         userName,
         blogId: newBlog.id,
         blogTitle: newBlog.title,
         themeId: themeId
-    });
+    }, { headers:  WebTokenHelper.buildHttpHeader()});
+
+    return response.data;
+};
+
+const deleteBlog = async (userName: string, blogId: string) => {
+    const response: any = await http.post("/spaces/blog", {
+        userName,
+        blogId
+    }, { headers:  WebTokenHelper.buildHttpHeader()});
 
     return response.data;
 };
@@ -48,6 +58,7 @@ const BlogService = {
   getAll,
   getBlog,
   createBlog,
+  deleteBlog,
 };
 
 export default BlogService

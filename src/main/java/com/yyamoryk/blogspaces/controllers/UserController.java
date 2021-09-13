@@ -27,7 +27,6 @@ public class UserController {
 	}
 
     @RequestMapping(method=RequestMethod.GET, value="/api/spaces/users")
-	//@PreAuthorize("isAuthenticated()")
     public Iterable<User> getUsers() {
         return userService.getAll();
     }
@@ -39,14 +38,20 @@ public class UserController {
 
 	@RequestMapping(method=RequestMethod.POST, value="/api/spaces/authenticate")
 	public ResponseEntity<?> authenticate(@Valid @RequestBody AuthData authData) {
-        return ResponseEntity.ok(userService.authenticate(authData));
+		try {
+        	return ResponseEntity.ok(userService.authenticate(authData));
+		} catch (Exception e) {
+			return ResponseEntity
+					.ok()
+					.body(new MessageData("Error: Username or password is wrong."));
+		}
 	}
 
 	@RequestMapping(method=RequestMethod.POST, value="/api/spaces/register")
 	public ResponseEntity<?> register(@Valid @RequestBody RegistrationData registrationData) {
 		if (userService.hasUser(registrationData)) {
 			return ResponseEntity
-					.badRequest()
+					.ok()
 					.body(new MessageData("Error: Username is already taken!"));
 		}
 

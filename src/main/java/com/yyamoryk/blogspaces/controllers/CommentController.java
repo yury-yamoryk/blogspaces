@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,6 +25,7 @@ public class CommentController {
 	}
 
     @RequestMapping(method=RequestMethod.POST, value="/api/spaces/createComment")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createComment(@Valid @RequestBody CreateCommentRequest request) {
         var newComment = new Comment(-1, request.getCommentText(), request.getCommentUserName());
         try {

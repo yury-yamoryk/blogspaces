@@ -1,5 +1,6 @@
 import http from "./HttpService";
 import Comment from "../entities/Comment";
+import WebTokenHelper from "../helpers/WebTokenHelper";
 
 const createComment = async (userName: string, blogId: string, postId: string, newComment: Comment) => {
   const response: any = await http.post("/spaces/createComment", {
@@ -8,7 +9,7 @@ const createComment = async (userName: string, blogId: string, postId: string, n
       postId,
       commentText: newComment.text,
       commentUserName: newComment.userName,
-  });
+  }, { headers:  WebTokenHelper.buildHttpHeader()});
 
   return response.data;
 };

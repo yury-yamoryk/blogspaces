@@ -29,7 +29,7 @@ describe("registerUser action", () => {
     it ("should return function dispatching REGISTER_FAIL", async () => {
         const actualAction = registerUser("testUserName", "testPassword");
         const mockedUserServiceRegister = UserService.register as jest.Mock;
-        mockedUserServiceRegister.mockRejectedValue({ message: "testMessage" } /* response */);
+        mockedUserServiceRegister.mockResolvedValue({ data: {message: "Error" }} /* response */);
 
         let recordedActions: string[] = [];
         await actualAction((action) => {
@@ -45,7 +45,7 @@ describe("loginUser action", () => {
     it ("should return function dispatching LOGIN_SUCCESS", async () => {
         const actualAction = loginUser("testUserName", "testPassword");
         const mockedUserServiceRegister = UserService.login as jest.Mock;
-        mockedUserServiceRegister.mockResolvedValue({} /* response */);
+        mockedUserServiceRegister.mockResolvedValue({ token: "token" } /* response */);
 
         let recordedActions: string[] = [];
         await actualAction((action) => {
@@ -58,7 +58,7 @@ describe("loginUser action", () => {
     it ("should return function dispatching LOGIN_FAIL", async () => {
         const actualAction = loginUser("testUserName", "testPassword");
         const mockedUserServiceRegister = UserService.login as jest.Mock;
-        mockedUserServiceRegister.mockRejectedValue({ message: "testMessage" } /* response */);
+        mockedUserServiceRegister.mockResolvedValue({ message: "Error" } /* response */);
 
         let recordedActions: string[] = [];
         await actualAction((action) => {
