@@ -7,7 +7,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-const Blog: React.FC = (props) => { 
+const Blog: React.FC = (props: any) => { 
     const location = useLocation();
     const blog = useSelector<any, BlogEntity>(state => state.blog);
     const dispatch = useDispatch<(action:any)=>any>();
@@ -15,6 +15,11 @@ const Blog: React.FC = (props) => {
     useEffect(() => {
         dispatch(getBlog(location.pathname));
     }, []);
+
+    const newPost = () => {
+        props.history.push("/spaces/createpost/" + blog.id);
+        window.location.reload();
+    };
 
     return (
         <div className="list row" style={
@@ -26,6 +31,10 @@ const Blog: React.FC = (props) => {
             : {}}>
             <div className="col-md-12">
                 <h1>{blog.title}</h1>
+
+                <button className="btn btn-success" onClick={newPost}>
+                    Add
+                </button>
 
                 {blog.posts && (
                     <ul className="list-group">

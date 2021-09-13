@@ -8,8 +8,21 @@ const getPost: (postPath: string) => Promise<{ optionalPost: Post, optionalTheme
     return httpResponse.data;
 };
 
+const createPost = async (userName: string, blogId: string, newPost: Post) => {
+  const response: any = await http.post("/spaces/createPost", {
+      userName,
+      blogId,
+      postId: newPost.id,
+      postTitle: newPost.title,
+      postDescription: newPost.description,
+  });
+
+  return response.data;
+};
+
 const PostService = {
   getPost,
+  createPost,
 };
 
 export default PostService

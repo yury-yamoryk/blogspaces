@@ -10,3 +10,4 @@ export const GET_BLOG = "GET_BLOG";
 export const GET_POST = "GET_POST";
 export const GET_THEMES = "GET_THEMES";
 export const CREATE_BLOG = "CREATE_BLOG";
+export const CREATE_POST = "CREATE_POST";

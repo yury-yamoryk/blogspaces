@@ -1,5 +1,7 @@
+import Post from "../entities/Post";
 import PostService from "../services/PostService";
-import { GET_POST } from "./types";
+import { setMessage } from "./message";
+import { CREATE_POST, GET_POST } from "./types";
 
 export const getPost = (postPath: string) => async (dispatch) => {
     try {
@@ -12,4 +14,18 @@ export const getPost = (postPath: string) => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const createPost = (userName: string, blogId: string, post: Post) => async (dispatch) => {
+    const response = await PostService.createPost(userName, blogId, post);
+    if (response.message) {
+        dispatch(setMessage(response.message));
+    } else {
+        const newPost = response.newPost;
+        dispatch({
+            type: CREATE_POST,
+            newPost,
+        });
+    }
+    return response;
 };

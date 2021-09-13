@@ -1,17 +1,14 @@
 import React, { useState, useEffect, ChangeEvent, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Blog from "../entities/Blog";
-import { Redirect } from 'react-router-dom';
-import { createBlog } from '../actions/blog'
+import { createPost } from '../actions/post'
 import { clearMessage } from '../actions/message';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import TextArea from "react-validation/build/textarea";
 import CheckButton from "react-validation/build/button";
-import Select from "react-validation/build/select";
-import { getThemes } from "../actions/theme";
-import Theme from "../entities/Theme";
 import WebTokenData from "../entities/WebTokenData";
+import Post from "../entities/Post";
 
 const required = (value:string) => {
     if (!value) {
@@ -23,7 +20,7 @@ const required = (value:string) => {
     }
 };
   
-const verifyBlogUrlId = (value:string) => {
+const verifyPostUrlId = (value:string) => {
     if (!value.match(/^[a-zA-Z0-9-]+$/g))
     return (
     <div className="alert alert-danger" role="alert">
@@ -32,7 +29,7 @@ const verifyBlogUrlId = (value:string) => {
     );
 };
 
-const CreateBlog: React.FC = (props:any) => {
+const CreatePost: React.FC = (props: any) => {
     const userData = useSelector<any, WebTokenData>(state => state.authentication.user);
     if (!userData) {
         props.history.push("/");
@@ -42,36 +39,27 @@ const CreateBlog: React.FC = (props:any) => {
     const form = useRef();
     const checkBtn = useRef();
 
-    const themes = useSelector<any, Theme[]>(state => state.theme);
-    const [blogId, setBlogId] = useState("");
-    const [blogTitle, setBlogTitle] = useState("");
-    const [blogThemeId, setBlogThemeId] = useState("");
+    const [postId, setPostId] = useState("");
+    const [postTitle, setPostTitle] = useState("");
+    const [postDescription, setPostDescription] = useState("");
     const [successful, setSuccessful] = useState(false);
-
-    useEffect(() => {
-        dispatch(getThemes()).then((getThemesResponse) => {
-            if (getThemesResponse) {
-                setBlogThemeId(getThemesResponse.themes[0].id);
-            }
-        });
-    }, []);
     
     const message = useSelector<any, string>(state => state.message.message);
     const dispatch = useDispatch<(action:any)=>any>();
 
-    const onChangeBlogId = (e: { target: { value: string; }; }) => {
-        const blogId = e.target.value;
-        setBlogId(blogId);
+    const onChangePostId = (e: { target: { value: string; }; }) => {
+        const postId = e.target.value;
+        setPostId(postId);
     };
 
-    const onChangeBlogTitle = (e: { target: { value: string; }; }) => {
-        const blogTitle = e.target.value;
-        setBlogTitle(blogTitle);
+    const onChangePostTitle = (e: { target: { value: string; }; }) => {
+        const postTitle = e.target.value;
+        setPostTitle(postTitle);
     };
 
-    const onChangeBlogThemeId = (e: { target: { value: string; }; }) => {
-        const blogThemeId = e.target.value;
-        setBlogThemeId(blogThemeId);
+    const onChangePostDescription = (e: { target: { value: string; }; }) => {
+        const postDescription = e.target.value;
+        setPostDescription(postDescription);
     };
 
     const submit = (e) => {
@@ -83,15 +71,16 @@ const CreateBlog: React.FC = (props:any) => {
         (form as any).current.validateAll();
 
         if ((checkBtn as any).current.context._errors.length === 0) {
-            const blog: Blog = {
-                id: blogId,
-                title: blogTitle,
-                theme: null,
-                posts: null,
+            const post: Post = {
+                id: postId,
+                title: postTitle,
+                description: postDescription,
+                comments: null,
             }
-            dispatch(createBlog(userData.username, blog, blogThemeId))
-                .then((createBlogResponse) => {
-                    if (!createBlogResponse.message) {
+            const blogId = props.match.params.blogId;
+            dispatch(createPost(userData.username, blogId, post))
+                .then((createPostResponse) => {
+                    if (!createPostResponse.message) {
                         setSuccessful(true);
                     } else {
                         setSuccessful(false);
@@ -103,7 +92,7 @@ const CreateBlog: React.FC = (props:any) => {
     };
 
     if (successful) {
-        return <Redirect to="/spaces" />;
+        props.history.goBack();
     }
 
     return (
@@ -113,46 +102,42 @@ const CreateBlog: React.FC = (props:any) => {
                 {!successful && (
                 <div>
                     <div>
-                        <label htmlFor="blogId">BLOG URL ID</label>
+                        <label htmlFor="blogId">POST URL ID</label>
                         <Input
                             type="text"
                             className="form-control"
-                            name="blogId"
-                            value={blogId}
-                            onChange={onChangeBlogId}
-                            validations={[required, verifyBlogUrlId]}
+                            name="postId"
+                            value={postId}
+                            onChange={onChangePostId}
+                            validations={[required, verifyPostUrlId]}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="blogTitle">BLOG TITLE</label>
+                        <label htmlFor="blogTitle">POST TITLE</label>
                         <Input
                             type="text"
                             className="form-control"
-                            name="blogTitle"
-                            value={blogTitle}
-                            onChange={onChangeBlogTitle}
+                            name="postTitle"
+                            value={postTitle}
+                            onChange={onChangePostTitle}
                             validations={[required]}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="blogTitle">BLOG THEME</label>
-                        <Select
+                        <label htmlFor="blogTitle">POST DESCRIPTION</label>
+                        <TextArea
                             className="form-control"
-                            name="blogThemeId"
-                            value={blogThemeId}
-                            onChange={onChangeBlogThemeId}
+                            name="postDescription"
+                            value={postDescription}
+                            onChange={onChangePostDescription}
                             validations={[required]}
-                        >
-                            {themes && themes.map((theme, index) => (
-                            <option value={theme.id} key={index}>{theme.name}</option>
-                            ))}
-                        </Select>
+                        />
                     </div>
 
                     <div className="text-center">
-                        <button className="btn btn-light btn-block">CREATE BLOG</button>
+                        <button className="btn btn-light btn-block">CREATE POST</button>
                     </div>
                 </div>
                 )}
@@ -171,4 +156,4 @@ const CreateBlog: React.FC = (props:any) => {
     );
 };
 
-export default CreateBlog;
+export default CreatePost;

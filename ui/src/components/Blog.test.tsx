@@ -30,6 +30,12 @@ it("Blog snapshot", () => {
         <h1>
           
         </h1>
+        <button
+          className="btn btn-success"
+          onClick={[Function]}
+        >
+          Add
+        </button>
         <ul
           className="list-group"
         />

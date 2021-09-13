@@ -37,7 +37,8 @@ export const createBlog = (userName: string, blog: Blog, themeId: string) => asy
         const newBlog = response.newBlog;
         dispatch({
             type: CREATE_BLOG,
-            newBlog,
+            newBlog
         });
     }
+    return response;
 };

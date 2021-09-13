@@ -1,14 +1,11 @@
 package com.yyamoryk.blogspaces.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import com.yyamoryk.blogspaces.entities.Blog;
 import com.yyamoryk.blogspaces.entities.MessageData;
 import com.yyamoryk.blogspaces.repositories.ThemeRepository;
 import com.yyamoryk.blogspaces.services.BlogService;
-import com.yyamoryk.blogspaces.services.ThemeService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +37,7 @@ public class BlogController {
         var optionalTheme = themeRepository.findAll().stream().filter(theme -> theme.getId().equals(request.getThemeId())).findFirst();
         if (optionalTheme.isEmpty()) {
             return ResponseEntity
-					.internalServerError()
+					.ok()
 					.body(new MessageData("Unknown Theme"));
         }
 
@@ -49,7 +46,7 @@ public class BlogController {
             return ResponseEntity.ok(new CreateBlogResponse(blogService.createBlog(request.getUserName(), newBlog)));
         } catch (Exception e) {
             return ResponseEntity
-					.internalServerError()
+					.ok()
 					.body(new MessageData(e.getMessage()));
         }
     }
