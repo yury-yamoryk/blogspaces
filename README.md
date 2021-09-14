@@ -6,8 +6,9 @@ Please follow these 7 steps to start the project:
 3) cd into the blogspaces directory
 4) Install gradle (e.g. brew install gradle)
 5) run 'gradle wrapper'
-6) run './gradlew bootRun'
-7) open 'localhost:8080'
+6) run './gradlew test' to create Themes in the database
+7) run './gradlew bootRun'
+8) open 'localhost:8080'
 
 Testing with curl:
 curl -X GET localhost:8080/users
